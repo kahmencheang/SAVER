@@ -1,14 +1,15 @@
 var homeBookmarkNode;
 
-function checkHomeDirectory(homeDir){
+function checkHomeDirectory(homeDir, callback){
 	chrome.bookmarks.search(homeDir, function(bookmarktreenodes){
-		bookmarkNodesLength = bookmarktreenodes.length;
+		var bookmarkNodesLength = bookmarktreenodes.length;
 		if(bookmarkNodesLength == 0){
 			addHomeDirectory(homeDir);
 		}
 		else if(bookmarkNodesLength == 1){
 			homeBookmarkNode = bookmarktreenodes[0];
 			console.log("Setting homeBookmarkNode");
+			callback();
 		}
 		else if(bookmarkNodesLength > 1){
 			alert("There exists more than one home folder!");
@@ -47,11 +48,11 @@ function openLink(bookmarkToOpen){
 }
 
 chrome.browserAction.onClicked.addListener(function(tab) { 
-	//alert('icon clicked');
-	//checkHomeDirectory("Saver bookmarks");
 	if(homeBookmarkNode == null){
-		alert("Home directory is not set!");
-		console.log("Home directory is not set!");
+		console.log("Home directory is not set! Setting home...");
+		checkHomeDirectory("Saver bookmarks", function(){
+			pickRandomBookmark();
+		});
 	}else{
 		console.log("Preparing to open bookmark");
 		pickRandomBookmark();
@@ -60,7 +61,17 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 
 chrome.runtime.onStartup.addListener(function(){
 	console.log("Starting up and setting home directory");
-	checkHomeDirectory("Saver bookmarks");
+	checkHomeDirectory("Saver bookmarks",null);
+});
+
+chrome.commands.onCommand.addListener(function(command) {
+    console.log('Command:', command);
+    if(command == "save_page"){
+    	//alert("save_page");
+    	
+    }else if(command == "delete_page"){
+    	//alert("delete_page");
+    }
 });
 
 

@@ -15,5 +15,25 @@
     "scripts": ["onClick.js"],
     "persistent": false
   },
+  "commands": {
+    "save_page": {
+      "suggested_key": {
+        "windows": "Alt+Shift+S",
+        "mac": "MacCtrl+S",
+        "chromeos": "Alt+Shift+S",
+        "linux": "Alt+Shift+S"
+      },
+      "description": "Saves current page to /Saver Bookmarks/"
+    },
+    "delete_page": {
+      "suggested_key": {
+        "windows": "Alt+Shift+D",
+        "mac": "MacCtrl+D",
+        "chromeos": "Alt+Shift+D",
+        "linux": "Alt+Shift+D"
+      },
+      "description": "Deletes current page from /Saver Bookmarks/"
+    }
+  },
   "content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'"
 }
