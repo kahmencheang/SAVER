@@ -1,16 +1,16 @@
 {
-
+  "manifest_version": 2,
   "name": "SAVER",
   "description": "Easiest way to catch up on your interests!",
   "version": "1.1",
   "permissions": [
-      "bookmarks"
-    ],
-    "browser_action": {
-        "default_title": "My Bookmarks",
-        "default_icon": "icon.png",
-        "default_popup": "popup.html"
+      "bookmarks",
+      "tabs"
+   ],
+  "browser_action": {
+      "default_title": "SAVER Bookmarks",
+      "default_icon": "icon.png",
+      "default_popup": "popup.html"
     },
-    "manifest_version": 2,
-    "content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'"
-  }
+  "content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'"
+}
