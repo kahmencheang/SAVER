@@ -4,19 +4,14 @@ function checkHomeDirectory(homeDir){
 	chrome.bookmarks.search(homeDir, function(bookmarktreenodes){
 		bookmarkNodesLength = bookmarktreenodes.length;
 		if(bookmarkNodesLength == 0){
-			//create
 			addHomeDirectory(homeDir);
-
 		}
 		else if(bookmarkNodesLength == 1){
-			console.log("here" + bookmarktreenodes[0].title);
 			homeBookmarkNode = bookmarktreenodes[0];
 			console.log("Setting homeBookmarkNode");
-			console.log("Preparing to open bookmark");
-			pickRandomBookmark();
 		}
 		else if(bookmarkNodesLength > 1){
-			//something wrong
+			alert("There exists more than one home folder!");
 			for(i = 0 ; i < bookmarktreenodes.length ; i++) {
 				console.log("callback results: "+i + bookmarktreenodes[i].title);
 			}
@@ -30,9 +25,6 @@ function addHomeDirectory(homeDir){
 		function(newHomeDir) {
 			homeBookmarkNode = newHomeDir;
 	        console.log("Saver added home folder: " + newHomeDir.title);
-
-	        console.log("Preparing to open bookmark");
-			pickRandomBookmark();
     	});
 }
 
@@ -42,7 +34,6 @@ function addFile(extensionsFolderId){
 }
 
 function pickRandomBookmark(){
-	console.log(homeBookmarkNode.title);
 	chrome.bookmarks.getChildren(homeBookmarkNode.id, function(childBookmarks){
 		var randPos = Math.floor((Math.random() * childBookmarks.length));
 		openLink(childBookmarks[randPos]);
@@ -55,8 +46,20 @@ function openLink(bookmarkToOpen){
 	});
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-	homeBookmarkNode = null;
+chrome.browserAction.onClicked.addListener(function(tab) { 
+	//alert('icon clicked');
+	//checkHomeDirectory("Saver bookmarks");
+	if(homeBookmarkNode == null){
+		alert("Home directory is not set!");
+		console.log("Home directory is not set!");
+	}else{
+		console.log("Preparing to open bookmark");
+		pickRandomBookmark();
+	}
+});
+
+chrome.runtime.onStartup.addListener(function(){
+	console.log("Starting up and setting home directory");
 	checkHomeDirectory("Saver bookmarks");
 });
 
