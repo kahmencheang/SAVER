@@ -17,9 +17,9 @@ function checkHomeDirectory(homeDir, callback){
 				console.log("callback results: "+i + bookmarktreenodes[i].title);
 			}
 		}
-		
 	});
 }
+
 
 function addHomeDirectory(homeDir){
 	chrome.bookmarks.create({'parentId': '2', 'title': homeDir},
