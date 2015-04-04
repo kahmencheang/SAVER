@@ -79,6 +79,15 @@ function bookmarkExists(url,callback){
 	});
 }
 
+//type: addTrue, addFalse, deleteTrue, deleteFalse
+function makeToastr(type, msg){
+	chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+	  chrome.tabs.sendMessage(tabs[0].id, {greeting: type, message: msg}, function(response) {
+	    console.log(response.farewell);
+	  });
+	});
+}
+
 chrome.commands.onCommand.addListener(function(command) {
 	checkHomeDirectory("Saver bookmarks",function(){
 		console.log('Command:', command);
@@ -93,9 +102,11 @@ chrome.commands.onCommand.addListener(function(command) {
 		        		chrome.bookmarks.create({parentId:homeBookmarkNode.id, title:tabTitle, url:tabUrl},
 		        			function(){
 		        				console.log("Added " + tabUrl + " to our bookmarks!");
+		        				makeToastr("addTrue", tabUrl);
 		        		});
 		        	}else{
-		        		alert("URL: " + tabUrl +" already exists!");
+		        		//alert("URL: " + tabUrl +" already exists!");
+		        		makeToastr("addFalse", tabUrl);
 		        	}
 		        });
 		    });
@@ -113,9 +124,11 @@ chrome.commands.onCommand.addListener(function(command) {
 		        bookmarkExists(tabUrl,function(urlExists, bookmarkRef){
 		        	if(!urlExists){
 		        		console.log("This page is not in our bookmarks!");
+		        		makeToastr("deleteFalse", tabUrl);
 		        	}else{
 		        		chrome.bookmarks.remove(bookmarkRef.id,function(){
 		        			console.log("Deleted page: " + tabUrl + " from bookmarks!");
+		        			makeToastr("deleteTrue", tabUrl);
 		        		});
 		        	}
 		        });
