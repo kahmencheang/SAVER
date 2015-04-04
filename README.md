@@ -4,9 +4,8 @@
 
 ### How to install:
 SAVER can be installed in two ways:
-1. Download and install SAVER through the Chrome Web Store :
-	http://bit.ly/1DIqtaX
-2. Download the source directory from this repository and add manually to your Chrome browser. Use these steps: https://developer.chrome.com/extensions/getstarted#unpacked
+1. Download and install SAVER through the Chrome Web Store : http://bit.ly/1DIqtaX
+2. Download the source directory from this repository and add manually to your Chrome browser. Use these steps : https://developer.chrome.com/extensions/getstarted#unpacked
 
 ### How to use SAVER:
 Once SAVER is installed into your chrome browser, you can use its features.
